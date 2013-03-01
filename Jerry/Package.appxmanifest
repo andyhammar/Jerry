@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="21411AndreasHammar.ShowmetheIP" Publisher="CN=FA18167A-309D-4036-BC20-56EAF537BC91" Version="1.0.0.1" />
+  <Identity Name="21411AndreasHammar.ShowmetheIP" Publisher="CN=FA18167A-309D-4036-BC20-56EAF537BC91" Version="1.0.0.2" />
   <Properties>
     <DisplayName>Show me the IP</DisplayName>
     <PublisherDisplayName>Andreas Hammar</PublisherDisplayName>
