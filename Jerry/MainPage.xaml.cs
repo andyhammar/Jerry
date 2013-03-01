@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Jerry.Common;
 using Windows.Networking.Connectivity;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -14,7 +16,7 @@ namespace Jerry
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
     public sealed partial class MainPage : Jerry.Common.LayoutAwarePage
-    {   
+    {
         public MainPage()
         {
             this.InitializeComponent();
@@ -33,6 +35,8 @@ namespace Jerry
         {
             var ip = GetIp();
             ipText.Text = ip;
+
+            SettingsPane.GetForCurrentView().CommandsRequested += GroupedItemsPage_CommandsRequested;
         }
 
         private string GetIp()
@@ -52,6 +56,11 @@ namespace Jerry
             return Regex.IsMatch(displayName, regex);
         }
 
+        
+        void GroupedItemsPage_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            SettingsHelper.AddSettingsCommands(args);
+        }
         /// <summary>
         /// Preserves state associated with this page in case the application is suspended or the
         /// page is discarded from the navigation cache.  Values must conform to the serialization
@@ -61,5 +70,21 @@ namespace Jerry
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
+    }
+    
+    public static class SettingsHelper
+    {
+        public static void AddSettingsCommands(SettingsPaneCommandsRequestedEventArgs args)
+        {
+            args.Request.ApplicationCommands.Clear();
+
+            SettingsCommand privacyPref = new SettingsCommand("privacyPref", "Privacy Policy", (uiCommand) =>
+            {
+                Windows.System.Launcher.LaunchUriAsync(new Uri("http://ahamprivacypolicy.azurewebsites.net/"));
+            });
+
+            args.Request.ApplicationCommands.Add(privacyPref);
+        }
+
     }
 }
