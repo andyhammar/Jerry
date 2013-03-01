@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Jerry.Common;
+using Windows.ApplicationModel.Background;
 using Windows.Networking.Connectivity;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml.Controls;
@@ -33,30 +34,16 @@ namespace Jerry
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var ip = GetIp();
+            var ip = IpHelper.GetIp();
             ipText.Text = ip;
+            TileHelper.UpdateTile(ip);
 
             SettingsPane.GetForCurrentView().CommandsRequested += GroupedItemsPage_CommandsRequested;
+
+            TaskHelper.RegisterBackgroundTask();
         }
 
-        private string GetIp()
-        {
-            var hosts = NetworkInformation.GetHostNames();
-            var ipHosts = hosts.Where(x => IsIp(x.DisplayName));
-            var realIpHosts = ipHosts.Where(x => !x.DisplayName.StartsWith("169.") && !x.DisplayName.StartsWith("0."));
 
-            var host = realIpHosts.FirstOrDefault();
-
-            return host != null ? host.DisplayName : "Could not find an IP address, are you connected?";
-        }
-
-        private bool IsIp(string displayName)
-        {
-            var regex = @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$";
-            return Regex.IsMatch(displayName, regex);
-        }
-
-        
         void GroupedItemsPage_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
             SettingsHelper.AddSettingsCommands(args);
@@ -70,21 +57,5 @@ namespace Jerry
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
-    }
-    
-    public static class SettingsHelper
-    {
-        public static void AddSettingsCommands(SettingsPaneCommandsRequestedEventArgs args)
-        {
-            args.Request.ApplicationCommands.Clear();
-
-            SettingsCommand privacyPref = new SettingsCommand("privacyPref", "Privacy Policy", (uiCommand) =>
-            {
-                Windows.System.Launcher.LaunchUriAsync(new Uri("http://ahamprivacypolicy.azurewebsites.net/"));
-            });
-
-            args.Request.ApplicationCommands.Add(privacyPref);
-        }
-
     }
 }

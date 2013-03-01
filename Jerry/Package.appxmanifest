@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="21411AndreasHammar.ShowmetheIP" Publisher="CN=FA18167A-309D-4036-BC20-56EAF537BC91" Version="1.0.0.0" />
+  <Identity Name="21411AndreasHammar.ShowmetheIP" Publisher="CN=FA18167A-309D-4036-BC20-56EAF537BC91" Version="1.0.0.1" />
   <Properties>
     <DisplayName>Show me the IP</DisplayName>
     <PublisherDisplayName>Andreas Hammar</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\logo-store.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
@@ -15,13 +15,17 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Jerry.App">
-      <VisualElements DisplayName="Show me the IP" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Shows you the IP for your machine" ForegroundText="light" BackgroundColor="#00A2E8">
-        <DefaultTile ShowName="allLogos" ShortName="Show me the IP" />
+      <VisualElements DisplayName="Show me the IP" Logo="Assets\logo-normal.png" SmallLogo="Assets\logo-small.png" Description="Shows you the IP for your machine" ForegroundText="light" BackgroundColor="#00A2E8">
+        <DefaultTile ShowName="allLogos" ShortName="Show me the IP" WideLogo="Assets\logo-wide.png" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Jerry.BackgroundTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>
