@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Windows.Networking.Connectivity;
 
-namespace Jerry
+namespace Jerry.Common
 {
     public class IpHelper
     {
@@ -19,9 +19,9 @@ namespace Jerry
 
         private static bool IsIp(string displayName)
         {
-            var regex = @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$";
+            const string regex = @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$";
             return Regex.IsMatch(displayName, regex);
         }
-
     }
+
 }

@@ -35,8 +35,9 @@ namespace Jerry
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var ip = IpHelper.GetIp();
-            ipText.Text = ip;
             TileHelper.UpdateTile(ip);
+
+            ipText.Text = ip;
 
             SettingsPane.GetForCurrentView().CommandsRequested += GroupedItemsPage_CommandsRequested;
 

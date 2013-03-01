@@ -20,7 +20,7 @@
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Jerry.BackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Jerry.Background.BackgroundTask">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>

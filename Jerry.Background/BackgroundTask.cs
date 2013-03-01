@@ -1,6 +1,7 @@
-﻿using Windows.ApplicationModel.Background;
+﻿using Jerry.Common;
+using Windows.ApplicationModel.Background;
 
-namespace Jerry
+namespace Jerry.Background
 {
     public sealed class BackgroundTask : IBackgroundTask
     {
