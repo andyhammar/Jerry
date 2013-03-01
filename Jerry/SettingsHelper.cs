@@ -9,7 +9,7 @@ namespace Jerry
         {
             args.Request.ApplicationCommands.Clear();
 
-            SettingsCommand privacyPref = new SettingsCommand("privacyPref", "Privacy Policy", (uiCommand) =>
+            var privacyPref = new SettingsCommand("privacyPref", "Privacy Policy", (uiCommand) =>
                 {
                     Windows.System.Launcher.LaunchUriAsync(new Uri("http://ahamprivacypolicy.azurewebsites.net/"));
                 });
